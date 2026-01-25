@@ -1,7 +1,7 @@
 local FILL_COLOR = Color3.fromHex("#d4d4d4")
 local OUTLINE_COLOR = Color3.fromHex("#6b34eb")
 
-local FILL_TRANSPARENCY = 0.91
+local FILL_TRANSPARENCY = 0.90
 local OUTLINE_TRANSPARENCY = 0.15
 
 local Players = game:GetService("Players")
