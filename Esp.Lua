@@ -69,7 +69,7 @@ background.ZIndex = 1
 
 background.BackgroundColor3 = Color3.new(0.0705882, 0.0705882, 0.0705882)
 background.BackgroundTransparency = 0
-background.Size = UDim2.new(0.4, 0, 0.7, 0)
+background.Size = UDim2.new(0.3, 0, 0.5, 0)
 background.Position = UDim2.new(0.3, 0, 0.15, 0)
 background.Parent = ui
 
