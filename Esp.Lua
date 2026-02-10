@@ -187,12 +187,92 @@ ScrollShopButton.TextScaled = true
 ScrollShopButton.Font = Enum.Font.GothamBold
 ScrollShopButton.ZIndex = 2
 
+local QuestsText = Instance.new("TextLabel")
+local QuestsStroke = Instance.new("UIStroke")
+
+QuestsStroke.Parent = QuestsText
+QuestsStroke.Thickness = 2
+QuestsStroke.Color = Color3.new(0, 0, 0)
+QuestsStroke.Transparency = 0
+QuestsStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+QuestsText.Parent = background
+QuestsText.Size = UDim2.new(0.2, 0, 0.05, 0)
+QuestsText.Position = UDim2.new(0.7, 0, 0.1, 0)
+QuestsText.Text = "World Events"
+QuestsText.TextColor3 = Color3.new(1, 1, 1)
+QuestsText.BackgroundColor3 = Color3.new(0.984314, 1, 0.168627)
+QuestsText.TextStrokeTransparency = 0
+QuestsText.TextScaled = true
+QuestsText.Font = Enum.Font.GothamBold
+
 -- functions
 local FILL_COLOR = Color3.fromHex("#d4d4d4")
 local OUTLINE_COLOR = Color3.fromHex("#6b34eb")
 
 local FILL_TRANSPARENCY = 0.91
 local OUTLINE_TRANSPARENCY = 0.15
+
+local buttonCounts = 0
+
+local function EventButton(name , position)
+	buttonCounts += 1
+
+	local button = Instance.new("TextButton")
+	local stroke = Instance.new("UIStroke")
+	stroke.Parent = button
+	stroke.Thickness = 2
+	stroke.Color = Color3.new(0, 0, 0)
+	stroke.Transparency = 0
+	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+	button.Parent = background
+	button.Size = UDim2.new(0.2, 0, 0.05, 0)
+	button.TextColor3 = Color3.new(1, 1, 1)
+	button.BackgroundColor3 = Color3.new(0.258824, 1, 0.258824)
+
+	button.Position = UDim2.new(0.8, 0, 0.1 + (buttonCounts * 0.05), 0)
+
+	button.Text = name
+	
+	button.MouseButton1Click:Connect(function()
+		local plr = game.Players.LocalPlayer
+		local char = plr.Character or plr.CharacterAdded:Wait()
+		local hrt = char:WaitForChild("HumanoidRootPart")
+		
+		hrt.CFrame = position + Vector3.new(0, 3, 0)
+	end)
+
+	return button
+end
+
+
+local function CheckEvent()
+	for _,event in game.Workspace.WorldEvents.Normal:GetChildren() do
+		
+		event.ChildAdded:Connect(function()
+			local button = EventButton(event.Name, event.CFrame)
+			
+			event.ChildRemoved:Connect(function()
+				button:Destroy()
+				buttonCounts -= 1
+			end)
+		end)
+		
+		if event:FindFirstChild("DamageFolder") then
+			
+			local button = EventButton(event.Name, event.CFrame)
+
+			event.ChildRemoved:Connect(function()
+				button:Destroy()
+				buttonCounts -= 1
+			end)
+		end
+	end
+end
+
+CheckEvent()
+
 
 local function getColor(text)
 	text = text:gsub("%s+", "")
@@ -216,7 +296,7 @@ end
 
 ScrollShopButton.MouseButton1Click:Connect(function()
 	local shop = game.Players.LocalPlayer.PlayerGui.Quests.TPScrollsShop
-	
+
 	shop.Visible = true
 end)
 
@@ -235,7 +315,7 @@ fillselector.FocusLost:Connect(function(enter)
 	else
 		fillselector.Text = "Invalid Color"
 	end
-	
+
 	wait(1)
 	fillselector.Text = "Fill Color"
 end)
@@ -250,7 +330,7 @@ outlineselec.FocusLost:Connect(function(enter)
 	else
 		outlineselec.Text = "Invalid Color"
 	end
-	
+
 	wait(1)
 	outlineselec.Text = "Outline Color"
 end)
@@ -264,7 +344,7 @@ filltransselector.FocusLost:Connect(function(enter)
 		filltransselector.Text = "Invalid Transparency"
 		filltransselector.BackgroundColor3 = Color3.new(1, 0, 0)
 	end
-	
+
 	wait(1)
 	filltransselector.Text = "Fill Transparency"
 	filltransselector.BackgroundColor3 = Color3.new(0.780392, 0.780392, 1)
@@ -279,7 +359,7 @@ outlinetransselector.FocusLost:Connect(function(enter)
 		outlinetransselector.Text = "Invalid Transparency"
 		outlinetransselector.BackgroundColor3 = Color3.new(1, 0, 0)
 	end
-	
+
 	wait(1)
 	outlinetransselector.Text = "Outline Transparency"
 	outlinetransselector.BackgroundColor3 = Color3.new(0.780392, 0.780392, 1)
@@ -303,7 +383,7 @@ local instances = {}
 
 local function ToggleESP(toggle)
 	local Players = game:GetService("Players")
-	
+
 	if not toggle then
 		for _, gui in pairs(instances) do
 			if gui then gui:Destroy() end
@@ -311,53 +391,6 @@ local function ToggleESP(toggle)
 		return
 	end
 
-	local function addHealthBar(character)
-		local humanoid = character:FindFirstChildOfClass("Humanoid")
-		local head = character:FindFirstChild("Head")
-		if not humanoid or not head then return end
-		if head:FindFirstChild("ESP_Health") then return end
-
-		local gui = Instance.new("BillboardGui")
-		gui.Name = "ESP_Health"
-		gui.Adornee = head
-		gui.Size = UDim2.fromScale(4, 0.5)
-		gui.StudsOffset = Vector3.new(0, 3, 0)
-		gui.AlwaysOnTop = true
-		gui.Parent = head
-
-		local bg = Instance.new("Frame")
-		bg.Size = UDim2.fromScale(1, 1)
-		bg.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-		bg.BorderSizePixel = 0
-		bg.Parent = gui
-
-		local bgCorner = Instance.new("UICorner")
-		bgCorner.CornerRadius = UDim.new(0, 6)
-		bgCorner.Parent = bg
-
-		local bar = Instance.new("Frame")
-		bar.Size = UDim2.fromScale(1, 1)
-		bar.BackgroundColor3 = Color3.fromRGB(100, 255, 100)
-		bar.BorderSizePixel = 0
-		bar.Parent = bg
-
-		local barCorner = Instance.new("UICorner")
-		barCorner.CornerRadius = UDim.new(0, 6)
-		barCorner.Parent = bar
-
-		local function update()
-			bar.Size = UDim2.fromScale(
-				math.clamp(humanoid.Health / humanoid.MaxHealth, 0, 1),
-				1
-			)
-		end
-
-		update()
-		humanoid.HealthChanged:Connect(update)
-		
-		table.insert(instances,gui)
-	end
-	
 	local function addHighlight(character)
 		if not character:IsA("Model") then return end
 		if not character:FindFirstChildOfClass("Humanoid") then return end
@@ -374,8 +407,6 @@ local function ToggleESP(toggle)
 		highlight.FillTransparency = FILL_TRANSPARENCY
 		highlight.OutlineTransparency = OUTLINE_TRANSPARENCY
 
-		addHealthBar(character)
-		
 		table.insert(instances,highlight)
 	end
 
