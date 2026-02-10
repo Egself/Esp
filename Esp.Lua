@@ -319,7 +319,11 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 
 	for _,pos in ipairs(merchantPos) do
 		hrt.CFrame = StringToCFrame(pos)
-		wait(3)
+		wait(3) 
+		
+		if game.Workspace.QuestNPCs:FindFirstChild("???") then
+			return
+		end
 	end
 end)
 
