@@ -318,6 +318,8 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 		hrt.CFrame = StringToCFrame(pos)
 		wait(3)
 	end
+    background.Visible = false
+	openbutton.Visible = true
 end)
 
 local function open()
