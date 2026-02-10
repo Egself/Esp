@@ -175,17 +175,16 @@ ScrollShopStroke.Color = Color3.new(0, 0, 0)
 ScrollShopStroke.Transparency = 0
 ScrollShopStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
-ScrollShopButton.Visible = false
-
 ScrollShopButton.Parent = background
 ScrollShopButton.Size = UDim2.new(0.2, 0, 0.05, 0)
 ScrollShopButton.Position = UDim2.new(0.4, 0, 0.1, 0)
-ScrollShopButton.Text = "Scroll Shop"
+ScrollShopButton.Text = "Travelling Merchant"
 ScrollShopButton.TextColor3 = Color3.new(1, 1, 1)
 ScrollShopButton.BackgroundColor3 = Color3.new(0.211765, 0.690196, 0.745098)
 ScrollShopButton.TextScaled = true
 ScrollShopButton.Font = Enum.Font.GothamBold
 ScrollShopButton.ZIndex = 2
+ScrollShopButton.textStrokeTransparency = 0
 
 local QuestsText = Instance.new("TextLabel")
 local QuestsStroke = Instance.new("UIStroke")
@@ -205,6 +204,8 @@ QuestsText.BackgroundColor3 = Color3.new(0.984314, 1, 0.168627)
 QuestsText.TextStrokeTransparency = 0
 QuestsText.TextScaled = true
 QuestsText.Font = Enum.Font.GothamBold
+
+
 
 -- functions
 local FILL_COLOR = Color3.fromHex("#d4d4d4")
@@ -234,12 +235,12 @@ local function EventButton(name , position)
 	button.Position = UDim2.new(0.7, 0, 0.1 + (buttonCounts * 0.05), 0)
 
 	button.Text = name
-	
+
 	button.MouseButton1Click:Connect(function()
 		local plr = game.Players.LocalPlayer
 		local char = plr.Character or plr.CharacterAdded:Wait()
 		local hrt = char:WaitForChild("HumanoidRootPart")
-		
+
 		hrt.CFrame = position + Vector3.new(0, 3, 0)
 	end)
 
@@ -249,18 +250,18 @@ end
 
 local function CheckEvent()
 	for _,event in game.Workspace.WorldEvents.Normal:GetChildren() do
-		
+
 		event.ChildAdded:Connect(function()
 			local button = EventButton(event.Name, event.CFrame)
-			
+
 			event.ChildRemoved:Connect(function()
 				button:Destroy()
 				buttonCounts -= 1
 			end)
 		end)
-		
+
 		if event:FindFirstChild("DamageFolder") then
-			
+
 			local button = EventButton(event.Name, event.CFrame)
 
 			event.ChildRemoved:Connect(function()
@@ -294,10 +295,29 @@ local function getColor(text)
 	return nil
 end
 
-ScrollShopButton.MouseButton1Click:Connect(function()
-	local shop = game.Players.LocalPlayer.PlayerGui.Quests.TPScrollsShop
+local merchantPos = {
+	"-5197.20068, 3.29959178, -322.690369, 0.223629937, -3.3609131e-09, -0.974674106, 1.86051813e-10, 1, -3.40555495e-09, 0.974674106, 5.80244186e-10, 0.223629937",
+	"-3373.52954, 3.69471788, 2275.90137, -0.35339275, -1.87011331e-08, 0.935475051, 5.04991782e-08, 1, 3.90680377e-08, -0.935475051, 6.10470821e-08, -0.35339275",
+	"-1131.19946, 15.580554, 816.494446, 0.520269573, 5.25635147e-10, 0.854002118, -9.1515e-09, 1, 4.95972063e-09, -0.854002118, -1.03957918e-08, 0.520269573",
+	"316.74292, -33.4303207, -1237.45264, -0.789251804, -7.61275132e-08, -0.614069641, -2.01999359e-08, 1, -9.80095294e-08, 0.614069641, -6.49500365e-08, -0.789251804",
+}
 
-	shop.Visible = true
+local function StringToCFrame(str)
+	local numbers = {}
+	for num in string.gmatch(str, "[^,]+") do
+		table.insert(numbers, tonumber(num))
+	end
+	return CFrame.new(unpack(numbers))
+end
+
+ScrollShopButton.MouseButton1Click:Connect(function()
+	local plr = game.Players.LocalPlayer
+	local hrt = plr.Character:WaitForChild("HumanoidRootPart")
+
+	for _,pos in ipairs(merchantPos) do
+		hrt.CFrame = StringToCFrame(pos)
+		wait(3)
+	end
 end)
 
 local function open()
