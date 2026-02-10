@@ -231,7 +231,7 @@ local function EventButton(name , position)
 	button.TextColor3 = Color3.new(1, 1, 1)
 	button.BackgroundColor3 = Color3.new(0.258824, 1, 0.258824)
 
-	button.Position = UDim2.new(0.8, 0, 0.1 + (buttonCounts * 0.05), 0)
+	button.Position = UDim2.new(0.7, 0, 0.1 + (buttonCounts * 0.05), 0)
 
 	button.Text = name
 	
