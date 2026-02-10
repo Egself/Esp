@@ -184,7 +184,7 @@ ScrollShopButton.BackgroundColor3 = Color3.new(0.211765, 0.690196, 0.745098)
 ScrollShopButton.TextScaled = true
 ScrollShopButton.Font = Enum.Font.GothamBold
 ScrollShopButton.ZIndex = 2
-ScrollShopButton.textStrokeTransparency = 0
+ScrollShopButton.TextStrokeTransparency = 0
 
 local QuestsText = Instance.new("TextLabel")
 local QuestsStroke = Instance.new("UIStroke")
