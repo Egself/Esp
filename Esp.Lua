@@ -314,12 +314,13 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 	local plr = game.Players.LocalPlayer
 	local hrt = plr.Character:WaitForChild("HumanoidRootPart")
 
+	background.Visible = false
+	openbutton.Visible = true
+
 	for _,pos in ipairs(merchantPos) do
 		hrt.CFrame = StringToCFrame(pos)
 		wait(3)
 	end
-    background.Visible = false
-	openbutton.Visible = true
 end)
 
 local function open()
