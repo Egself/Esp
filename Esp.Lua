@@ -317,6 +317,8 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 	background.Visible = false
 	openbutton.Visible = true
 
+	local origin = hrt.CFrame
+
 	for _,pos in ipairs(merchantPos) do
 		hrt.CFrame = StringToCFrame(pos)
 		wait(3) 
@@ -325,6 +327,8 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 			return
 		end
 	end
+
+	hrt.CFrame = origin
 end)
 
 local function open()
