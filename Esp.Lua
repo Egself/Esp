@@ -205,7 +205,25 @@ QuestsText.TextStrokeTransparency = 0
 QuestsText.TextScaled = true
 QuestsText.Font = Enum.Font.GothamBold
 
+local RollBackButton = Instance.new("TextButton")
+local RollBackStroke = Instance.new("UIStroke")
 
+RollBackStroke.Parent = RollBackButton
+RollBackStroke.Thickness = 2
+RollBackStroke.Color = Color3.new(0, 0, 0)
+RollBackStroke.Transparency = 0
+RollBackStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+RollBackButton.Parent = background
+RollBackButton.Size = UDim2.new(0.3, 0, 0.08, 0)
+RollBackButton.Position = UDim2.new(0.4, 0, 0.3, 0)
+RollBackButton.Text = "Roll Back"
+RollBackButton.TextColor3 = Color3.new(1, 1, 1)
+RollBackButton.BackgroundColor3 = Color3.new(1, 0.517647, 0.0980392)
+RollBackButton.TextScaled = true
+RollBackButton.Font = Enum.Font.GothamBold
+RollBackButton.ZIndex = 2
+RollBackButton.TextStrokeTransparency = 0
 
 -- functions
 local FILL_COLOR = Color3.fromHex("#d4d4d4")
@@ -246,6 +264,15 @@ local function EventButton(name , position)
 
 	return button
 end
+
+RollBackButton.MouseButton1Up:Connect(function()
+	local plr = game.Players.LocalPlayer
+	local teleport = game:GetService("TeleportService")
+
+	local GameId = 16997056665
+
+	teleport:Teleport(GameId, plr)
+end)
 
 
 local function CheckEvent()
@@ -322,7 +349,7 @@ ScrollShopButton.MouseButton1Click:Connect(function()
 	for _,pos in ipairs(merchantPos) do
 		hrt.CFrame = StringToCFrame(pos)
 		wait(3) 
-		
+
 		if game.Workspace.QuestNPCs:FindFirstChild("???") then
 			return
 		end
