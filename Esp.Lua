@@ -274,33 +274,54 @@ RollBackButton.MouseButton1Up:Connect(function()
 	teleport:Teleport(GameId, plr)
 end)
 
+local Normal = workspace.WorldEvents.Normal
+local activeButtons = {} -- [event] = button
 
-local function CheckEvent()
-	for _,event in game.Workspace.WorldEvents.Normal:GetChildren() do
+local function ensureButton(event)
+	if activeButtons[event] then return end
+	activeButtons[event] = EventButton(event.Name, event.CFrame)
+end
 
-		event.ChildAdded:Connect(function()
-			local button = EventButton(event.Name, event.CFrame)
-
-			event.ChildRemoved:Connect(function()
-				button:Destroy()
-				buttonCounts -= 1
-			end)
-		end)
-
-		if event:FindFirstChild("DamageFolder") then
-
-			local button = EventButton(event.Name, event.CFrame)
-
-			event.ChildRemoved:Connect(function()
-				button:Destroy()
-				buttonCounts -= 1
-			end)
-		end
+local function removeButton(event)
+	local btn = activeButtons[event]
+	if btn then
+		btn:Destroy()
+		activeButtons[event] = nil
+		buttonCounts -= 1
 	end
 end
 
-CheckEvent()
+local function hookEvent(event)
+	if event:FindFirstChild("DamageFolder") then
+		ensureButton(event)
+	end
 
+	event.ChildAdded:Connect(function(child)
+		if child.Name == "DamageFolder" then
+			ensureButton(event)
+		end
+	end)
+
+	event.ChildRemoved:Connect(function(child)
+		if child.Name == "DamageFolder" then
+			removeButton(event)
+		end
+	end)
+
+	event.AncestryChanged:Connect(function(_, parent)
+		if parent == nil then
+			removeButton(event)
+		end
+	end)
+end
+
+for _, event in ipairs(Normal:GetChildren()) do
+	hookEvent(event)
+end
+
+Normal.ChildAdded:Connect(function(event)
+	hookEvent(event)
+end)
 
 local function getColor(text)
 	text = text:gsub("%s+", "")
