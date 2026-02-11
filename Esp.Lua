@@ -26,7 +26,7 @@ openbutton.Visible = false
 openbutton.ZIndex = 1
 
 closebutton.Parent = background
-closebutton.Size = UDim2.new(0.1, 0, 0.05, 0)
+closebutton.Size = UDim2.new(0.1, 0, 0.08, 0)
 closebutton.Position = UDim2.new(0.9, 0, 0, 0)
 closebutton.Text = "X"
 closebutton.TextColor3 = Color3.new(1, 1, 1)
@@ -42,7 +42,7 @@ closebutton.ZIndex = 2
 closeStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 minimizeButton.Parent = background
-minimizeButton.Size = UDim2.new(0.1, 0, 0.05, 0)
+minimizeButton.Size = UDim2.new(0.1, 0, 0.08, 0)
 minimizeButton.Position = UDim2.new(0.8, 0, 0, 0)
 minimizeButton.Text = "-"
 minimizeButton.TextColor3 = Color3.new(1, 1, 1)
@@ -69,7 +69,7 @@ background.ZIndex = 1
 
 background.BackgroundColor3 = Color3.new(0.0705882, 0.0705882, 0.0705882)
 background.BackgroundTransparency = 0
-background.Size = UDim2.new(0.3, 0, 0.3, 0)
+background.Size = UDim2.new(0.5, 0, 0.5, 0)
 background.Position = UDim2.new(0.3, 0, 0.15, 0)
 background.Parent = ui
 
@@ -78,7 +78,7 @@ local EspButton = Instance.new("TextButton")
 local EspStroke = Instance.new("UIStroke")
 
 EspButton.Parent = background
-EspButton.Size = UDim2.new(0.2, 0, 0.05, 0)
+EspButton.Size = UDim2.new(0.3, 0, 0.08, 0)
 EspButton.Position = UDim2.new(0.05, 0, 0.1, 0)
 EspButton.Text = "ESP"
 EspButton.TextColor3 = Color3.new(1, 1, 1)
@@ -105,7 +105,7 @@ fillselector.ZIndex = 2
 fillstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 fillselector.Parent = background
-fillselector.Size = UDim2.new(0.2, 0, 0.05, 0)
+fillselector.Size = UDim2.new(0.3, 0, 0.08, 0)
 fillselector.Position = UDim2.new(0.05, 0, 0.18, 0)
 fillselector.Text = "Fill Color"
 fillselector.TextColor3 = Color3.new(1, 1, 1)
@@ -123,7 +123,7 @@ outlineselec.ZIndex = 2
 outlineStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 outlineselec.Parent = background
-outlineselec.Size = UDim2.new(0.2, 0, 0.05, 0)
+outlineselec.Size = UDim2.new(0.3, 0, 0.08, 0)
 outlineselec.Position = UDim2.new(0.05, 0, 0.25, 0)
 outlineselec.Text = "Outline Color"
 outlineselec.TextColor3 = Color3.new(1, 1, 1)
@@ -141,7 +141,7 @@ filltransselector.ZIndex = 2
 filltransstroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 filltransselector.Parent = background
-filltransselector.Size = UDim2.new(0.2, 0, 0.05, 0)
+filltransselector.Size = UDim2.new(0.3, 0, 0.08, 0)
 filltransselector.Position = UDim2.new(0.05, 0, 0.32, 0)
 filltransselector.Text = "Fill Transparency"
 filltransselector.TextColor3 = Color3.new(1, 1, 1)
@@ -159,7 +159,7 @@ outlinetransselector.ZIndex = 2
 outlineTransStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 outlinetransselector.Parent = background
-outlinetransselector.Size = UDim2.new(0.2, 0, 0.05, 0)
+outlinetransselector.Size = UDim2.new(0.3, 0, 0.08, 0)
 outlinetransselector.Position = UDim2.new(0.05, 0, 0.39, 0)
 outlinetransselector.Text = "Outline Transparency"
 outlinetransselector.TextColor3 = Color3.new(1, 1, 1)
@@ -176,7 +176,7 @@ ScrollShopStroke.Transparency = 0
 ScrollShopStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 ScrollShopButton.Parent = background
-ScrollShopButton.Size = UDim2.new(0.2, 0, 0.05, 0)
+ScrollShopButton.Size = UDim2.new(0.3, 0, 0.08, 0)
 ScrollShopButton.Position = UDim2.new(0.4, 0, 0.1, 0)
 ScrollShopButton.Text = "Travelling Merchant"
 ScrollShopButton.TextColor3 = Color3.new(1, 1, 1)
@@ -196,7 +196,7 @@ QuestsStroke.Transparency = 0
 QuestsStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 QuestsText.Parent = background
-QuestsText.Size = UDim2.new(0.2, 0, 0.05, 0)
+QuestsText.Size = UDim2.new(0.3, 0, 0.08, 0)
 QuestsText.Position = UDim2.new(0.7, 0, 0.1, 0)
 QuestsText.Text = "World Events"
 QuestsText.TextColor3 = Color3.new(1, 1, 1)
@@ -228,7 +228,7 @@ local function EventButton(name , position)
 	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
 	button.Parent = background
-	button.Size = UDim2.new(0.2, 0, 0.05, 0)
+	button.Size = UDim2.new(0.3, 0, 0.08, 0)
 	button.TextColor3 = Color3.new(1, 1, 1)
 	button.BackgroundColor3 = Color3.new(0.258824, 0, 0.558824)
 
