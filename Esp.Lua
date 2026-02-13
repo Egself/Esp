@@ -1,6 +1,8 @@
 local ui = Instance.new("ScreenGui")
 ui.Parent = game.Players.LocalPlayer.PlayerGui
 
+ui.ResetOnSpawn = false
+
 local background = Instance.new("Frame")
 local backgroundStroke = Instance.new("UIStroke")
 local drag = Instance.new("UIDragDetector")
